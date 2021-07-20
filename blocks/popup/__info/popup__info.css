@@ -1,0 +1,32 @@
+.popup__info {
+    width: 358px;
+    margin-bottom: 48px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 40px;
+    color: #000000;
+
+}
+
+
+@media screen and (max-width: 520px) {
+    .popup__info { 
+            width: 238px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 17px;
+            margin-bottom: 53px;
+
+    }
+}
+
+::-webkit-input-placeholder {color:black;}
+::-moz-placeholder          {color:black;}/* Firefox 19+ */
+:-moz-placeholder           {color:black;}/* Firefox 18- */
+:-ms-input-placeholder      {color:black;}
