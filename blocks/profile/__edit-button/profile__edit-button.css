@@ -4,8 +4,12 @@
     background-size: cover;
     background-image: url(../../../images/Edit\ Button.svg);
     align-self: center;
-    margin-left: 18px;
+    margin-left: 12px;
+    color: #FFFFFF;
+    background-color: black;
+    border-radius: 3px;
     cursor: pointer;
+    border: none;
 }
 
 @media screen and (max-width: 320px) {

@@ -2,15 +2,18 @@
     width: 150px;
     height: 50px;
     background-size: cover;
-    background-image: url(../../../images/Add\ Button.png);
+    background-image: url(../../../images/Add\ Button.svg);
     align-self: center;
+    color: #FFFFFF;
+    background-color: black;
+    border-radius: 3px;
     cursor: pointer;
+    border: none;
 }
 
 @media screen and (max-width: 620px) {
     .profile__add-button {
-        background-image: url(../../../images/Add\ Button__320px.png);
+        background-image: url(../../../images/Add\ Button-320.svg);
         width: 282px;
-        height: 50px;
     }
 }
