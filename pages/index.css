@@ -24,7 +24,7 @@
 
 /*PROFILE*/
 @import url(../blocks/profile/profile.css);
-@import url(../blocks/profile/__info-wrapper/profile__info__wrapper.css);
+@import url(../blocks/profile/__info-wrapper/profile__info-wrapper.css);
 @import url(../blocks/profile/__illustration/profile__illustration.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__title/profile__title.css);

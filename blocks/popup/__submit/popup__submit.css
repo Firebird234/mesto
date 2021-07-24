@@ -3,7 +3,7 @@
     height: 50px;
     margin-top: 32px;
      margin-bottom: 37px;
-     font-family: Inter;
+     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -16,6 +16,12 @@
     border: none;
 }
 
+.popup__submit:hover {
+    background: #000000;
+    opacity: 0.8;
+    border-radius: 2px;
+    }
+    
 
 @media screen and (max-width: 520px) {
     .popup__submit {

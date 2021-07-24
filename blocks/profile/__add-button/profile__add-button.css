@@ -11,6 +11,12 @@
     border: none;
 }
 
+
+.profile__add-button:hover {
+    opacity: 0.6;
+}
+
+
 @media screen and (max-width: 620px) {
     .profile__add-button {
         background-image: url(../../../images/Add\ Button-320.svg);
