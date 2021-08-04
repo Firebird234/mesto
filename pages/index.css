@@ -1,7 +1,5 @@
 @import url(../vendor/normalize.css);
-
 @import url(../vendor/inter.css);
-
 @import url(../blocks/page/page.css);
 
 
@@ -19,8 +17,6 @@
 @import url(../blocks/popup/__submit/popup__submit.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
-
-
 
 
 /*PROFILE*/
@@ -45,3 +41,22 @@
 /*FOOTER*/
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
+
+
+/*JS TEMPLATE CARDS*/
+@import url(../blocks/elements/__illustration/elements__illustration.css);
+@import url(../blocks/elements/__delete/elements__delete.css);
+
+
+/*JS LIKE*/
+@import url(../blocks/elements/__like/_active/elements__like_active.css);
+
+/*popup_press-image*/
+@import url(../blocks/popup/_press-image/popup_press-image.css);/*DELETE?*/
+@import url(../blocks/popup/_press-image/__wrapper/popup_press-image__wrapper.css);
+@import url(../blocks/popup/_press-image/__illustration/popup_press-image__illustration.css);
+@import url(../blocks/popup/_press-image/__title/popup_press-image__title.css);
+
+
+
+
