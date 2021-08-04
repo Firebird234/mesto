@@ -78,7 +78,7 @@ const initialCards = [
 
 const addButton = document.querySelector('.profile__add-button');
 const popupAdd = document.querySelector(".popup_add");
-const popupCloseAdded = document.querySelector(".popup_delete_added");
+const popupCloseAdded = document.querySelector(".popup__close_dismiss");
 const addPopupSubmit = document.querySelector('.popup__submit_added');
 
 
@@ -120,10 +120,10 @@ formAdded.addEventListener('submit', addformSubmitHandler)
 
 
 const imageOpenButton = document.querySelector('.elements__illustration');
-const ImageCloseButton = document.querySelector('.popup_press-image_close');
+const ImageCloseButton = document.querySelector('.popup__close_opened-image');
 const imagePopup = document.querySelector('.popup_press-image');
-const newCardIlmage = document.querySelector('.popup_press-image__illustration');
-const newCardImageTitle = document.querySelector('.popup_press-image__title');
+const newCardIlmage = document.querySelector('.popup__illustration');
+const newCardImageTitle = document.querySelector('.popup__image-title');
 
 
 //ALL ACTION INSIDE CARDS SECTION

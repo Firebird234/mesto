@@ -53,9 +53,9 @@
 
 /*popup_press-image*/
 @import url(../blocks/popup/_press-image/popup_press-image.css);/*DELETE?*/
-@import url(../blocks/popup/_press-image/__wrapper/popup_press-image__wrapper.css);
-@import url(../blocks/popup/_press-image/__illustration/popup_press-image__illustration.css);
-@import url(../blocks/popup/_press-image/__title/popup_press-image__title.css);
+@import url(../blocks/popup/__wrapper/popup__wrapper.css);
+@import url(../blocks/popup/__illustration/popup__illustration.css);
+@import url(../blocks/popup/__image-title/popup__image-title.css);
 
 
 
