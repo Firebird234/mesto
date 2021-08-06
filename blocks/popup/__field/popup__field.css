@@ -1,4 +1,4 @@
-.popup__info {
+.popup__field {
     width: 358px;
     margin-bottom: 14px;
     outline: none;
@@ -13,7 +13,7 @@
 
 
 @media screen and (max-width: 520px) {
-    .popup__info { 
+    .popup__field { 
             width: 238px;
             margin-bottom: 16px;
             line-height: 35px;

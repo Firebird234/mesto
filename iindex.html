@@ -13,8 +13,6 @@
     <div class="page">
 
 
-
-
         <header class="header">
             <div class="header__logo"></div>
             <div class="header__line"></div>
@@ -23,7 +21,6 @@
     
 
       <main class="content">
-
 
         <section class="profile">
             <div class="profile__info-wrapper">
@@ -49,25 +46,25 @@
         </footer>
 
 
-
         <article class="popup">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать&nbsp;профиль</h2>
                 <form class="form" name="profileImfo">
-                    <input type="text" class="popup__info popup__info_form_name" placeholder="Жак-Ив-Кусто" name="name">
-                    <input type="text" class="popup__info popup__info_form_job" placeholder="Исследователь океана" name="profession">
+                    <input type="text" class="popup__field popup__field_type_name" placeholder="Жак-Ив-Кусто" name="name">
+                    <input type="text" class="popup__field popup__field_type_job" placeholder="Исследователь океана" name="profession">
                     <button type="submit" class="popup__submit">Сохранить</button>
                 </form>
-                <button class="popup__close" type="button"></button>
+                <button class="popup__close popup__close_edit" type="button"></button>
             </div>
         </article>
+
 
         <article class="popup popup_add">
             <div class="popup__container">
                 <h2 class="popup__title">Новое&nbsp;место</h2>
                 <form class="form form_added" name="profileImfo">
-                    <input type="text" class="popup__info popup__info_form_place" placeholder="Название" name="name" required>
-                    <input type="text" class="popup__info popup__info_form_link" placeholder="Ссылка на картинку" name="image-link" required>
+                    <input type="text" class="popup__field popup__field_type_place" placeholder="Название" name="name" required>
+                    <input type="url" class="popup__field popup__field_type_link" placeholder="Ссылка на картинку" name="image-link" required>
                     <button type="submit" class="popup__submit popup__submit_added">Создать</button>
                 </form>
                 <button class="popup__close popup__close_dismiss" type="button"></button>
@@ -88,6 +85,7 @@
       
     </div>
 
+
     <template id="template__cards">
         <article class="elements__item">
             <img class="elements__illustration" src="#" alt="Иллюстрация к карточке">
@@ -102,128 +100,3 @@
 <script src="./scripts/index.js"></script>
 </body>
 </html>
-
-
-
-
-<!--
-    <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
-    <title>Some place</title>
-</head>
-
-<body>
-
-    <div class="page">
-
-
-
-
-        <header class="header">
-            <div class="header__logo"></div>
-            <div class="header__line"></div>
-        </header>
-    
-    
-
-      <main class="content">
-
-
-        <section class="profile">
-            <div class="profile__info-wrapper">
-                <img class="profile__illustration" alt="Аватар пользователя" src="./images/Avatar.png">
-                <div class="profile__info">
-                    <h1 class="profile__title">Жак-Ив-Кусто</h1>
-                    <button type="button" class="profile__edit-button"></button>
-                    <p class="profile__subtitle">Исследователь океана</p>
-                </div>
-            </div>
-            <button class="profile__add-button" type="button"></button>
-
-        </section>
-
-
-        <section class="elements">
-            <article class="elements__item">
-                <img src="./images/kirill-pershin-1088404-unsplash-1.png" alt="Иллюстрация к карточке">
-                <div class="elements__info">
-                    <h2 class="elements__title">Карачаевск</h2>
-                    <button class="elements__like" type="button"></button>
-                </div>
-            </article>
-
-            <article class="elements__item">
-                <img src="./images/kirill-pershin-1404681-unsplash-1.png" alt="Иллюстрация к карточке">
-                <div class="elements__info">
-                    <h2 class="elements__title">Гора Эльбрус</h2>
-                    <button class="elements__like" type="button"></button>
-                </div>
-            </article>
-
-            <article class="elements__item">
-                <img src="./images/kirill-pershin-1556355-unsplash-1.png" alt="Иллюстрация к карточке">
-                <div class="elements__info">
-                    <h2 class="elements__title">Домбай</h2>
-                    <button class="elements__like" type="button"></button>
-                </div>
-            </article>
-
-            <article class="elements__item">
-                <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Иллюстрация к карточке">
-                <div class="elements__info">
-                    <h2 class="elements__title">Гора Эльбрус</h2>
-                    <button class="elements__like" type="button"></button>
-                </div>
-            </article>
-
-            <article class="elements__item">
-                <img src="./images/kirill-pershin-1404681-unsplash.png" alt="Иллюстрация к карточке">
-                <div class="elements__info">
-                    <h2 class="elements__title">Домбай</h2>
-                    <button class="elements__like" type="button"></button>
-                </div>
-            </article>
-
-            <article class="elements__item">
-                <img src="./images/kirill-pershin-1556355-unsplash.png" alt="Иллюстрация к карточке">
-                <div class="elements__info">
-                    <h2 class="elements__title">Карачаево-Черкесск</h2>
-                    <button class="elements__like" type="button"></button>
-                </div>
-            </article>
-
-        </section>
-
-        
-        <footer class="footer">
-            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
-
-
-
-        <article class="popup">
-            <div class="popup__container">
-                <h2 class="popup__title">Редактировать&nbsp;профиль</h2>
-                <form class="form" name="profileImfo">
-                    <input type="text" class="popup__info popup__info_form_name" placeholder="Жак-Ив-Кусто" name="name">
-                    <input type="text" class="popup__info popup__info_form_job" placeholder="Исследователь океана" name="profession">
-                    <button type="submit" class="popup__submit">Сохранить</button>
-                </form>
-                <button class="popup__close" type="button"></button>
-            </div>
-        </article>
-
-
-      </main>
-      
-    </div>
-
-<script src="./scripts/index.js"></script>
-</body>
-</html>
--->
