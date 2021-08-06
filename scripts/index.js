@@ -54,7 +54,6 @@ const initialCards = [
 ]; 
 
 
-
 function openPopup(anyPopup) {
   anyPopup.classList.add("popup_opened");
     inputPopupData();
