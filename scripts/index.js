@@ -88,21 +88,21 @@ function createCard (name, link) {
 //ALL ACTION INSIDE CARDS SECTION
 
 
-card.querySelector('.elements__like').addEventListener('click', () => { 
-  card.querySelector('.elements__like').classList.toggle('elements__like_active');//LIKE
-});
+    card.querySelector('.elements__like').addEventListener('click', () => { 
+      card.querySelector('.elements__like').classList.toggle('elements__like_active');//LIKE
+    });
 
-card.querySelector('.elements__delete').addEventListener('click', () => { 
-  card.remove();//DELETE CARD
-});
+    card.querySelector('.elements__delete').addEventListener('click', () => { 
+      card.remove();//DELETE CARD
+    });
 
-card.querySelector('.elements__illustration').addEventListener('click', () => {
-  openPopup(imagePopup);//OPEN POPUP
- imagePopupIllustration.src  = card.querySelector('.elements__illustration').src;//CREATE POPUP IMAGE SRC
- imagePopupIllustration.alt = card.innerText;
- imagePopupTitle.textContent  = card.querySelector('.elements__title').textContent;//CREATE POPUP IMAGE TITLE
-
-});
+    card.querySelector('.elements__illustration').addEventListener('click', () => {
+      openPopup(imagePopup);//OPEN POPUP
+     imagePopupIllustration.src  = card.querySelector('.elements__illustration').src;//CREATE POPUP IMAGE SRC
+     imagePopupIllustration.alt = card.querySelector('.elements__title').textContent;
+     imagePopupTitle.textContent  = card.querySelector('.elements__title').textContent;//CREATE POPUP IMAGE TITLE
+    
+    });
 
 
 //      card.addEventListener('click', (evt) => {
@@ -116,7 +116,7 @@ card.querySelector('.elements__illustration').addEventListener('click', () => {
 //        imagePopupTitle.textContent  = evt.target.closest('.elements__item').querySelector('.elements__title').textContent;//CREATE POPUP IMAGE TITLE
 //      };
 //    })
-return card;
+    return card;
 }
 
 
