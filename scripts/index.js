@@ -56,6 +56,13 @@ const initialCards = [
 
 function openPopup(anyPopup) {
   anyPopup.classList.add("popup_opened");
+  enableValidation({
+    formSelector: '.form',
+    inputSelector: '.popup__field',
+    submitButtonSelector: '.popup__submit',
+    inactiveButtonClass: 'submit-invalid',
+    inputInvalid : '.popup__field_invalid'
+  })
 }
 
 
@@ -77,6 +84,7 @@ function insertEditPopupData() {
     jobInput.value = profileJob.textContent;
 }
 
+insertEditPopupData()
 
 function createCard (name, link) {
     const card = document.querySelector('#template__cards').content.querySelector('.elements__item').cloneNode(true);
@@ -152,3 +160,47 @@ popupEditButton.addEventListener('click', () => { openPopup(popupEditProfile);
                                                   insertEditPopupData() });
 
 closeEditButton.addEventListener('click', () => { closePopup(popupEditProfile) });
+
+
+const formEditProfile = document.forms.profileImfo;
+const formAddPlace = document.forms.addPlace;
+const allForms = Array.from(document.forms)
+
+//ESC/CLICK OVERLAY -> CLOSE POPUP 4 cards
+const allCards = Array.from(document.querySelectorAll('.popup__illustration'));
+
+allCards.forEach((el) => {
+const popup = document.querySelector('.popup__illustration').closest('.popup')
+
+    document.addEventListener('keydown', (evt) => {
+    console.log(evt);
+    if (evt.key === 'Escape') {closePopup(popup);}
+  })
+
+  document.addEventListener('mousedown', (evt) => {
+    console.log(evt);
+    if (!el.contains(evt.target)) {closePopup(popup);}
+  })
+})
+
+// ESC/CLICK OVERLAY -> CLOSE POPUP
+allForms.forEach((el,ind,arr) => {
+  const popup = el.parentNode.parentNode;
+
+  if ( el.parentNode.parentNode.classList.contains('popup_opened')) {
+    if (isFormInvalid(el)) { setButtonState(button, false)}
+    else { setButtonState(button, true)};
+  }
+  
+  popup.addEventListener('mousedown', (evt) => {
+    if (!popup.querySelector('.popup__container').contains(evt.target)) {closePopup(popup);}
+  })
+  
+  document.addEventListener('keydown', (evt) => {
+    console.log(evt);
+    if (evt.key === 'Escape') {closePopup(popup);}
+  })
+
+
+})
+
