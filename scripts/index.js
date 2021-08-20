@@ -164,43 +164,31 @@ closeEditButton.addEventListener('click', () => { closePopup(popupEditProfile) }
 
 const formEditProfile = document.forms.profileImfo;
 const formAddPlace = document.forms.addPlace;
-const allForms = Array.from(document.forms)
+const allForms = Array.from(document.forms);
+const allPopups = Array.from(document.querySelectorAll('.popup'))
 
-//ESC/CLICK OVERLAY -> CLOSE POPUP 4 cards
-const allCards = Array.from(document.querySelectorAll('.popup__illustration'));
 
-allCards.forEach((el) => {
-const popup = document.querySelector('.popup__illustration').closest('.popup')
-
-    document.addEventListener('keydown', (evt) => {
-    console.log(evt);
-    if (evt.key === 'Escape') {closePopup(popup);}
-  })
-
-  document.addEventListener('mousedown', (evt) => {
-    console.log(evt);
-    if (!el.contains(evt.target)) {closePopup(popup);}
-  })
-})
 
 // ESC/CLICK OVERLAY -> CLOSE POPUP
-allForms.forEach((el,ind,arr) => {
-  const popup = el.parentNode.parentNode;
+allPopups.forEach((el,ind,arr) => {
 
-  if ( el.parentNode.parentNode.classList.contains('popup_opened')) {
-    if (isFormInvalid(el)) { setButtonState(button, false)}
-    else { setButtonState(button, true)};
+if (el.classList.contains('.popup_opened')) {
+  if (isFormInvalid(el)) { setButtonState(button, false)}
+  else { setButtonState(button, true)};
   }
   
-  popup.addEventListener('mousedown', (evt) => {
-    if (!popup.querySelector('.popup__container').contains(evt.target)) {closePopup(popup);}
+  el.addEventListener('mousedown', (evt) => {
+    if (!el.querySelector('.popup__container').contains(evt.target)) {closePopup(el);}
+  })
+
+  el.addEventListener('mousedown', (evt) => {
+    if (!el.querySelector('.popup__wrapper').contains(evt.target)) {closePopup(el);}
   })
   
   document.addEventListener('keydown', (evt) => {
     console.log(evt);
-    if (evt.key === 'Escape') {closePopup(popup);}
+    if (evt.key === 'Escape') {closePopup(el);}
   })
-
 
 })
 
