@@ -54,20 +54,24 @@ const initialCards = [
 ]; 
 
 
+
+const keypadHandler = function(evt) {
+  console.log(evt);
+  const popup = document.querySelector('.popup_opened')
+  if (evt.key === 'Escape') {closePopup(popup);}
+}
+
 function openPopup(anyPopup) {
   anyPopup.classList.add("popup_opened");
-  enableValidation({
-    formSelector: '.form',
-    inputSelector: '.popup__field',
-    submitButtonSelector: '.popup__submit',
-    inactiveButtonClass: 'submit-invalid',
-    inputInvalid : '.popup__field_invalid'
-  })
+
+  document.addEventListener('keydown', keypadHandler);
 }
 
 
 function closePopup(anyPopup) {
   anyPopup.classList.remove("popup_opened");
+
+  document.removeEventListener('keydown', keypadHandler)
 }
 
 
@@ -144,6 +148,8 @@ function addFormSubmitHandler (evt) {
     pasteCard(placeInput.value, linkInput.value);
     closePopup(popupAdd);
     formAdded.reset();
+    formAdded.querySelector('.popup__submit').setAttribute('disabled', true);
+    formAdded.querySelector('.popup__submit').classList.add('submit-invalid')
 }
 
 
@@ -178,16 +184,7 @@ if (el.classList.contains('.popup_opened')) {
   }
   
   el.addEventListener('mousedown', (evt) => {
-    if (!el.querySelector('.popup__container').contains(evt.target)) {closePopup(el);}
-  })
-
-  el.addEventListener('mousedown', (evt) => {
-    if (!el.querySelector('.popup__wrapper').contains(evt.target)) {closePopup(el);}
-  })
-  
-  document.addEventListener('keydown', (evt) => {
-    console.log(evt);
-    if (evt.key === 'Escape') {closePopup(el);}
+    if (evt.target === el.closest('.popup')) {closePopup(el);}
   })
 
 })

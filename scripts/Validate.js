@@ -61,7 +61,8 @@ function validateForm (evt, obj) {
 function setEventListeners(form, obj) {
   
   form.addEventListener('input', (evt) => {validateForm(evt,obj)}, true);
-  const button = form.querySelector(obj.submitButtonSelector)
+  const button = form.querySelector(obj.submitButtonSelector);
+  
   if (isFormInvalid(form, obj)) { setButtonState(button, false, obj)}
   else { setButtonState(button, true, obj)};
 
@@ -75,3 +76,11 @@ function enableValidation(obj) {
     setEventListeners(formEl, obj);
   })
 }
+
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'submit-invalid',
+  inputInvalid : '.popup__field_invalid'
+});
