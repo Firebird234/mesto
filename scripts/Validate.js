@@ -1,8 +1,3 @@
-
-
-const inputK = formEditProfile.querySelector('.popup__field_type_name');
-
-
 //formSelector: '.form',
 //inputSelector: '.popup__field',
 //submitButtonSelector: '.popup__submit',

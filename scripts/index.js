@@ -57,8 +57,9 @@ const initialCards = [
 
 const keypadHandler = function(evt) {
   console.log(evt);
-  const popup = document.querySelector('.popup_opened')
-  if (evt.key === 'Escape') {closePopup(popup);}
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);}
 }
 
 function openPopup(anyPopup) {
@@ -110,10 +111,9 @@ function createCard (name, link) {
 
     card.querySelector('.elements__illustration').addEventListener('click', () => {
       openPopup(imagePopup);//OPEN POPUP
-     imagePopupIllustration.src  = card.querySelector('.elements__illustration').src;//CREATE POPUP IMAGE SRC
-     imagePopupIllustration.alt = card.querySelector('.elements__title').textContent;
-     imagePopupTitle.textContent  = card.querySelector('.elements__title').textContent;//CREATE POPUP IMAGE TITLE
-    
+     imagePopupIllustration.src  = link;//CREATE POPUP IMAGE SRC
+     imagePopupIllustration.alt = name;
+     imagePopupTitle.textContent  = name;//CREATE POPUP IMAGE TITLE
     });
 
 
@@ -153,19 +153,16 @@ function addFormSubmitHandler (evt) {
 }
 
 
-imageCloseButton.addEventListener('click', () => { closePopup(imagePopup) });
 
 formAdded.addEventListener('submit', addFormSubmitHandler)
 
 popupAddButton.addEventListener('click', () => { openPopup(popupAdd) });
-popupAddCardCloseButton.addEventListener('click', () => { closePopup(popupAdd) });
 
 formEditElement.addEventListener('submit', editFormSubmitHandler);
 
 popupEditButton.addEventListener('click', () => { openPopup(popupEditProfile);
                                                   insertEditPopupData() });
 
-closeEditButton.addEventListener('click', () => { closePopup(popupEditProfile) });
 
 
 const formEditProfile = document.forms.profileImfo;
@@ -175,17 +172,11 @@ const allPopups = Array.from(document.querySelectorAll('.popup'))
 
 
 
-// ESC/CLICK OVERLAY -> CLOSE POPUP
+//CLICK OVERLAY -> CLOSE POPUP
 allPopups.forEach((el,ind,arr) => {
-
-if (el.classList.contains('.popup_opened')) {
-  if (isFormInvalid(el)) { setButtonState(button, false)}
-  else { setButtonState(button, true)};
-  }
-  
-  el.addEventListener('mousedown', (evt) => {
+    el.addEventListener('mousedown', (evt) => {
     if (evt.target === el.closest('.popup')) {closePopup(el);}
+    if (evt.target === el.querySelector('.popup__close')) {closePopup(el);}
   })
-
-})
-
+}
+)
