@@ -1,3 +1,5 @@
+import { Card } from "./card.js";
+import { FormValidator } from "./formValidator.js";
 //EDIT PROFILE POPUP
 const popupEditButton = document.querySelector(".profile__edit-button");
 const closeEditButton = document.querySelector(".popup__close_edit");
@@ -18,11 +20,11 @@ const placeInput = document.querySelector(".popup__field_type_place");
 const linkInput = document.querySelector(".popup__field_type_link");
 const formAdded = document.querySelector('.form_added');
 //PRESS IMAGE POPUP
-const imageOpen = document.querySelector('.elements__illustration');
-const imageCloseButton = document.querySelector('.popup__close_opened-image');
-const imagePopup = document.querySelector('.popup_press-image');
-const imagePopupIllustration = document.querySelector('.popup__illustration');
-const imagePopupTitle = document.querySelector('.popup__image-title');
+export const imageOpen = document.querySelector('.elements__illustration');
+export const imageCloseButton = document.querySelector('.popup__close_opened-image');
+export const imagePopup = document.querySelector('.popup_press-image');
+export const imagePopupIllustration = document.querySelector('.popup__illustration');
+export const imagePopupTitle = document.querySelector('.popup__image-title');
 
 //КАРТОЧКИ
 
@@ -53,8 +55,6 @@ const initialCards = [
   }
 ]; 
 
-
-
 const keypadHandler = function(evt) {
   console.log(evt);
   if (evt.key === 'Escape') {
@@ -62,7 +62,7 @@ const keypadHandler = function(evt) {
     closePopup(popup);}
 }
 
-function openPopup(anyPopup) {
+export default function openPopup(anyPopup) {
   anyPopup.classList.add("popup_opened");
 
   document.addEventListener('keydown', keypadHandler);
@@ -91,67 +91,20 @@ function insertEditPopupData() {
 
 insertEditPopupData()
 
-function createCard (name, link) {
-    const card = document.querySelector('#template__cards').content.querySelector('.elements__item').cloneNode(true);
-    card.querySelector('.elements__title').innerText = name;
-    card.querySelector('.elements__illustration').src = link;
-    card.querySelector('.elements__illustration').alt = name;
-    
-
-//ALL ACTION INSIDE CARDS SECTION
-
-
-    card.querySelector('.elements__like').addEventListener('click', () => { 
-      card.querySelector('.elements__like').classList.toggle('elements__like_active');//LIKE
-    });
-
-    card.querySelector('.elements__delete').addEventListener('click', () => { 
-      card.remove();//DELETE CARD
-    });
-
-    card.querySelector('.elements__illustration').addEventListener('click', () => {
-      openPopup(imagePopup);//OPEN POPUP
-     imagePopupIllustration.src  = link;//CREATE POPUP IMAGE SRC
-     imagePopupIllustration.alt = name;
-     imagePopupTitle.textContent  = name;//CREATE POPUP IMAGE TITLE
-    });
-
-
-//      card.addEventListener('click', (evt) => {
-//      if (evt.target.classList.contains('elements__like')) { evt.target.classList.toggle('elements__like_active' )};//LIKE
-//      if (evt.target.classList.contains('elements__delete')) { evt.target.closest('.elements__item').remove()};//DELETE CARD
-//    //POPUP_PRESS-IMAGE
-//      if (evt.target.classList.contains('elements__illustration')) {
-//        imagePopup.classList.add('popup_opened');//OPEN POPUP
-//        imagePopupIllustration.src  = evt.target.closest('.elements__illustration').src;//CREATE POPUP IMAGE SRC
-//        imagePopupIllustration.alt = evt.target.closest('.elements__item').innerText;
-//        imagePopupTitle.textContent  = evt.target.closest('.elements__item').querySelector('.elements__title').textContent;//CREATE POPUP IMAGE TITLE
-//      };
-//    })
-    return card;
-}
-
-
-function pasteCard (name, link) {
-  const cardConst = createCard(name, link);
-  document.querySelector('.elements').prepend(cardConst);
-}
-  
-//пометка для себя - РАЗОБРАТЬСЯ С FOREACH
-for (let index = 0; index < initialCards.length; index++) {
-  pasteCard(initialCards[index].name, initialCards[index].link)   
-}
 
 
 function addFormSubmitHandler (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    pasteCard(placeInput.value, linkInput.value);
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+    const card = new Card(placeInput.value, linkInput.value, '#template__cards');
+    const cardElement = card.generateCard();
+    document.querySelector('.elements').prepend(cardElement);
+
     closePopup(popupAdd);
     formAdded.reset();
     formAdded.querySelector('.popup__submit').setAttribute('disabled', true);
     formAdded.querySelector('.popup__submit').classList.add('submit-invalid')
 }
-
 
 
 formAdded.addEventListener('submit', addFormSubmitHandler)
@@ -180,3 +133,31 @@ allPopups.forEach((el,ind,arr) => {
   })
 }
 )
+
+
+
+initialCards.forEach((el, index, arr) => {
+    
+  const card = new Card(initialCards[index].name, initialCards[index].link, '#template__cards');
+
+  const cardElement = card.generateCard();
+
+  document.querySelector('.elements').append(cardElement);
+})
+
+
+
+Array.from(document.querySelectorAll('.form')).forEach((formEl) => {
+  const dataObj = {
+      formSelector: '.form',
+      inputSelector: '.popup__field',
+      submitButtonSelector: '.popup__submit',
+      inactiveButtonClass: 'submit-invalid',
+      inputInvalid : '.popup__field_invalid'
+    }
+
+  const form = new FormValidator(dataObj, formEl)
+  form.enableValidation();
+})
+
+
