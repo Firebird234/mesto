@@ -3,10 +3,11 @@ import openPopup from "./index.js";
 
 export class Card {
 
-    constructor(name, link, cardSelector) {
+    constructor(name, link, cardSelector, openCardPopup) {
         this._name = name;
         this._link = link;
         this._cardSelector = cardSelector;
+        this.openCardPopup = openCardPopup;
     }
 
     _copyTemplateCard() {
@@ -17,7 +18,6 @@ export class Card {
 
     generateCard() {
       this._card = this._copyTemplateCard();
-      this._openImagePopup();
       this._setEventListeners();
 
       this._card.querySelector('.elements__title').innerText = this._name;
@@ -35,34 +35,13 @@ export class Card {
         this._card.remove();
     }
 
-    _handleIllustrationPopup() {
-        const imagePopup = document.querySelector('.popup_press-image');
-        const imagePopupIllustration = document.querySelector('.popup__illustration');
-        const imagePopupTitle = document.querySelector('.popup__image-title');
-        
-        openPopup(imagePopup);//OPEN POPUP
-        imagePopupIllustration.src  = this.link;//CREATE POPUP IMAGE SRC
-        imagePopupIllustration.alt = this.name;
-        imagePopupTitle.textContent  = this.name;//CREATE POPUP IMAGE TITLE
-    }
 
     _setEventListeners() {
         this._card.querySelector('.elements__like').addEventListener('click', () => this._pressLike());
       
         this._card.querySelector('.elements__delete').addEventListener('click', () => this._deleteCard());
       
-        this._card.querySelector('.elements__illustration').addEventListener('click', () => this._handleIllustrationPopup);
+        this._card.querySelector('.elements__illustration').addEventListener('click', () => { this.openCardPopup(this._name, this._link) });
     }
-
-    _openImagePopup() {
-        this._card.querySelector('.elements__illustration').addEventListener('click', () => {
-            openPopup(imagePopup);//OPEN POPUP
-           imagePopupIllustration.src  = this._link;//CREATE POPUP IMAGE SRC
-           imagePopupIllustration.alt = this._name;
-           imagePopupTitle.textContent  = this._name;//CREATE POPUP IMAGE TITLE
-          });
-          
-    }
-
 }
 

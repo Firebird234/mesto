@@ -26,6 +26,9 @@ export const imagePopup = document.querySelector('.popup_press-image');
 export const imagePopupIllustration = document.querySelector('.popup__illustration');
 export const imagePopupTitle = document.querySelector('.popup__image-title');
 
+const elementsSection = document.querySelector('.elements');
+
+
 //КАРТОЧКИ
 
 const initialCards = [
@@ -96,14 +99,11 @@ insertEditPopupData()
 function addFormSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-    const card = new Card(placeInput.value, linkInput.value, '#template__cards');
+    const card = new Card(placeInput.value, linkInput.value, '#template__cards', openCardPopup);
     const cardElement = card.generateCard();
-    document.querySelector('.elements').prepend(cardElement);
+    elementsSection.prepend(cardElement);
 
     closePopup(popupAdd);
-    formAdded.reset();
-    formAdded.querySelector('.popup__submit').setAttribute('disabled', true);
-    formAdded.querySelector('.popup__submit').classList.add('submit-invalid')
 }
 
 
@@ -128,8 +128,7 @@ const allPopups = Array.from(document.querySelectorAll('.popup'))
 //CLICK OVERLAY -> CLOSE POPUP
 allPopups.forEach((el,ind,arr) => {
     el.addEventListener('mousedown', (evt) => {
-    if (evt.target === el.closest('.popup')) {closePopup(el);}
-    if (evt.target === el.querySelector('.popup__close')) {closePopup(el);}
+    if (evt.target === el.closest('.popup') || evt.target === el.querySelector('.popup__close')) {closePopup(el);}
   })
 }
 )
@@ -138,7 +137,7 @@ allPopups.forEach((el,ind,arr) => {
 
 initialCards.forEach((el, index, arr) => {
     
-  const card = new Card(initialCards[index].name, initialCards[index].link, '#template__cards');
+  const card = new Card(initialCards[index].name, initialCards[index].link, '#template__cards', openCardPopup);
 
   const cardElement = card.generateCard();
 
@@ -160,4 +159,18 @@ Array.from(document.querySelectorAll('.form')).forEach((formEl) => {
   form.enableValidation();
 })
 
+
+function openCardPopup(name, link) {
+
+  const imagePopup = document.querySelector('.popup_press-image');
+  const imagePopupIllustration = document.querySelector('.popup__illustration');
+  const imagePopupTitle = document.querySelector('.popup__image-title');
+        
+  openPopup(imagePopup);
+  imagePopupIllustration.src  = link;//CREATE POPUP IMAGE SRC
+  imagePopupIllustration.alt = name;
+  imagePopupTitle.textContent  = name;
+}
+
+export {openCardPopup};
 
