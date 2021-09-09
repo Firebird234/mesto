@@ -1,6 +1,3 @@
-import {imagePopup, imageOpen, imageCloseButton, imagePopupIllustration, imagePopupTitle} from "./index.js";
-import openPopup from "./index.js";
-
 export class Card {
 
     constructor(name, link, cardSelector, openCardPopup) {

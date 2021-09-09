@@ -95,14 +95,18 @@ function insertEditPopupData() {
 insertEditPopupData()
 
 
+function createCard(name, link) {
+   const card = new Card(name, link, '#template__cards', openCardPopup);
+   const cardElement = card.generateCard();
+   return cardElement;
+}
+
 
 function addFormSubmitHandler (evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-    const card = new Card(placeInput.value, linkInput.value, '#template__cards', openCardPopup);
-    const cardElement = card.generateCard();
+    const cardElement = createCard(placeInput.value, linkInput.value);
     elementsSection.prepend(cardElement);
-
     closePopup(popupAdd);
 }
 
@@ -136,11 +140,8 @@ allPopups.forEach((el,ind,arr) => {
 
 
 initialCards.forEach((el, index, arr) => {
-    
-  const card = new Card(initialCards[index].name, initialCards[index].link, '#template__cards', openCardPopup);
-
-  const cardElement = card.generateCard();
-
+  
+  const cardElement = createCard(el.name, el.link);
   document.querySelector('.elements').append(cardElement);
 })
 
