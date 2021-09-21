@@ -1,0 +1,22 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "My website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Firebird234/mesto.git"
+  },
+  "author": "Root",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Firebird234/mesto/issues"
+  },
+  "homepage": "https://github.com/Firebird234/mesto#readme",
+  "dependencies": {
+    "jQuery": "^1.7.4"
+  }
+}

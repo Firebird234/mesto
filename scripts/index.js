@@ -1,5 +1,7 @@
 import { Card } from "./card.js";
 import { FormValidator } from "./formValidator.js";
+import { Section } from "./Section.js";
+
 //EDIT PROFILE POPUP
 const popupEditButton = document.querySelector(".profile__edit-button");
 const closeEditButton = document.querySelector(".popup__close_edit");
@@ -104,9 +106,15 @@ function createCard(name, link) {
 
 function addFormSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    const addedCardData = [{name:placeInput.value, link:linkInput.value}];
 
-    const cardElement = createCard(placeInput.value, linkInput.value);
-    elementsSection.prepend(cardElement);
+    const cardsSection = new Section({ items: addedCardData, renderer: (item) => {
+      const cardElement = createCard(item.name, item.link);
+      cardsSection.addItem(cardElement);
+    } 
+    }, elementsSection);
+    cardsSection.renderItems();
+  
     closePopup(popupAdd);
 }
 
@@ -138,12 +146,20 @@ allPopups.forEach((el,ind,arr) => {
 )
 
 
-
+/*
 initialCards.forEach((el, index, arr) => {
   
   const cardElement = createCard(el.name, el.link);
   document.querySelector('.elements').append(cardElement);
 })
+*/
+
+const cardsSection = new Section({ items: initialCards, renderer: (item) => {
+  const cardElement = createCard(item.name, item.link);
+  cardsSection.addItem(cardElement);
+} 
+}, elementsSection);
+cardsSection.renderItems();
 
 
 
