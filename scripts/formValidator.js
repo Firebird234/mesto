@@ -59,7 +59,7 @@ export class FormValidator {
   }
 
   resetForm() {
-    this._form.reset();
+    //this._form.reset();
     this._form.querySelector('.popup__submit').setAttribute('disabled', true); 
     this._form.querySelector('.popup__submit').classList.add('submit-invalid');
   }

@@ -1,6 +1,12 @@
-import { Card } from "./card.js";
-import { FormValidator } from "./formValidator.js";
-import { Section } from "./Section.js";
+import './index.css'
+
+import { Card } from "../scripts/card.js";
+import { FormValidator } from "../scripts/formValidator.js";
+import { Section } from "../scripts/Section.js";
+import { Popup } from "../scripts/Popup.js"
+import { PopupWithImage } from "../scripts/PopupWithImage.js";
+import { PopupWithForm } from "../scripts/PopupWithForm.js";
+import { UserInfo } from "../scripts/UserInfo.js";
 
 //EDIT PROFILE POPUP
 const popupEditButton = document.querySelector(".profile__edit-button");
@@ -60,99 +66,53 @@ const initialCards = [
   }
 ]; 
 
-const keypadHandler = function(evt) {
-  console.log(evt);
-  if (evt.key === 'Escape') {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);}
-}
 
-export default function openPopup(anyPopup) {
-  anyPopup.classList.add("popup_opened");
-
-  document.addEventListener('keydown', keypadHandler);
-}
-
-
-function closePopup(anyPopup) {
-  anyPopup.classList.remove("popup_opened");
-
-  document.removeEventListener('keydown', keypadHandler)
-}
-
+const popupEdit = new Popup('.popup_edit');
+const editUserInfo = new UserInfo( {name: '.profile__title', job: '.profile__subtitle'} );
 
 function editFormSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
-    closePopup(popupEditProfile);
+    popupEdit.close();
 }
 
-
 function insertEditPopupData() {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
+  const data = editUserInfo.getUserInfo();
+  nameInput.value = data.nameInput;
+  jobInput.value = data.jobInput;
 }
 
 insertEditPopupData()
 
 
+
 function createCard(name, link) {
-   const card = new Card(name, link, '#template__cards', openCardPopup);
+
+   const card = new Card(name, link, '#template__cards', { handleCardClick: (name, link) => {
+    const imageCardPopup = new PopupWithImage('.popup_press-image');
+    imageCardPopup.open(name, link);
+    imageCardPopup.setEventListeners();}
+})
+
    const cardElement = card.generateCard();
    return cardElement;
 }
 
 
-function addFormSubmitHandler (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    const addedCardData = [{name:placeInput.value, link:linkInput.value}];
 
-    const cardsSection = new Section({ items: addedCardData, renderer: (item) => {
-      const cardElement = createCard(item.name, item.link);
-      cardsSection.addItem(cardElement);
-    } 
-    }, elementsSection);
-    cardsSection.renderItems();
-  
-    closePopup(popupAdd);
-}
-
-
-formAdded.addEventListener('submit', addFormSubmitHandler)
-
-popupAddButton.addEventListener('click', () => { openPopup(popupAdd) });
+popupAddButton.addEventListener('click', () => {
+ popupWithFromClass.open();
+});
 
 formEditElement.addEventListener('submit', editFormSubmitHandler);
 
-popupEditButton.addEventListener('click', () => { openPopup(popupEditProfile);
-                                                  insertEditPopupData() });
+popupEditButton.addEventListener('click', () => { popupEdit.open();
+                                                  insertEditPopupData();
+                                                  popupEdit.setEventListeners()});
 
 
-
-const formEditProfile = document.forms.profileImfo;
-const formAddPlace = document.forms.addPlace;
-const allForms = Array.from(document.forms);
-const allPopups = Array.from(document.querySelectorAll('.popup'))
-
-
-
-//CLICK OVERLAY -> CLOSE POPUP
-allPopups.forEach((el,ind,arr) => {
-    el.addEventListener('mousedown', (evt) => {
-    if (evt.target === el.closest('.popup') || evt.target === el.querySelector('.popup__close')) {closePopup(el);}
-  })
-}
-)
-
-
-/*
-initialCards.forEach((el, index, arr) => {
-  
-  const cardElement = createCard(el.name, el.link);
-  document.querySelector('.elements').append(cardElement);
-})
-*/
 
 const cardsSection = new Section({ items: initialCards, renderer: (item) => {
   const cardElement = createCard(item.name, item.link);
@@ -161,6 +121,16 @@ const cardsSection = new Section({ items: initialCards, renderer: (item) => {
 }, elementsSection);
 cardsSection.renderItems();
 
+
+const popupWithFromClass = new PopupWithForm(
+  '.popup_add',
+  (data) => {
+    const cardElement = createCard(data.name, Object.values(data)[1]);
+    console.log(Object.keys(data)[1])
+    cardsSection.addItem(cardElement);
+  }
+  );
+  popupWithFromClass.setEventListeners()
 
 
 Array.from(document.querySelectorAll('.form')).forEach((formEl) => {
@@ -176,18 +146,10 @@ Array.from(document.querySelectorAll('.form')).forEach((formEl) => {
   form.enableValidation();
 })
 
+console.log('abobus');
+const numbers = [2, 3, 5];
 
-function openCardPopup(name, link) {
+// Стрелочная функция. Не запнётся ли на ней Internet Explorer?
+const doubledNumbers = numbers.map(number => number * 2);
 
-  const imagePopup = document.querySelector('.popup_press-image');
-  const imagePopupIllustration = document.querySelector('.popup__illustration');
-  const imagePopupTitle = document.querySelector('.popup__image-title');
-        
-  openPopup(imagePopup);
-  imagePopupIllustration.src  = link;//CREATE POPUP IMAGE SRC
-  imagePopupIllustration.alt = name;
-  imagePopupTitle.textContent  = name;
-}
-
-export {openCardPopup};
-
+console.log(doubledNumbers); // 4, 6, 10 )

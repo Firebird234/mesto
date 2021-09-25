@@ -1,22 +1,39 @@
 {
   "name": "mesto",
   "version": "1.0.0",
-  "description": "My website",
+  "description": "1.В данном проекте используются: html5, css3,java script, адаптивная верстка, создана файловая структура Nested(по БЭМ).\r 2.В будущем планируется доработка проекта: а именно добавление функциональности элементов.\r 3.ссылка на гит [https://firebird234.github.io/mesto/iindex.html]",
   "main": "index.js",
+  "dependencies": {
+    "core-js": "^3.18.0",
+    "jQuery": "^1.7.4",
+    "webpack-dev-server": "^4.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "autoprefixer": "^10.3.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.3.0",
+    "cssnano": "^5.0.8",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.3.0",
+    "postcss-loader": "^6.1.1",
+    "webpack": "^5.54.0",
+    "webpack-cli": "^4.8.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Firebird234/mesto.git"
   },
-  "author": "Root",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Firebird234/mesto/issues"
   },
-  "homepage": "https://github.com/Firebird234/mesto#readme",
-  "dependencies": {
-    "jQuery": "^1.7.4"
-  }
+  "homepage": "https://github.com/Firebird234/mesto#readme"
 }

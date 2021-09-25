@@ -1,10 +1,10 @@
 export class Card {
 
-    constructor(name, link, cardSelector, openCardPopup) {
+    constructor(name, link, cardSelector, { handleCardClick }) {
         this._name = name;
         this._link = link;
         this._cardSelector = cardSelector;
-        this.openCardPopup = openCardPopup;
+        this.handleCardClick = handleCardClick;
     }
 
     _copyTemplateCard() {
@@ -38,7 +38,7 @@ export class Card {
       
         this._card.querySelector('.elements__delete').addEventListener('click', () => this._deleteCard());
       
-        this._card.querySelector('.elements__illustration').addEventListener('click', () => { this.openCardPopup(this._name, this._link) });
+        this._card.querySelector('.elements__illustration').addEventListener('click', () => { this.handleCardClick(this._name, this._link) });
     }
 }
 
