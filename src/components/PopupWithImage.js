@@ -6,8 +6,8 @@ export class PopupWithImage extends Popup {
     }
 
     open(name, link) {
-        const imagePopupIllustration = document.querySelector('.popup__illustration');
-        const imagePopupTitle = document.querySelector('.popup__image-title');
+        const imagePopupIllustration = this._popup.querySelector('.popup__illustration');
+        const imagePopupTitle = this._popup.querySelector('.popup__image-title');
 
         super.open();
         imagePopupIllustration.src  = link;//CREATE POPUP IMAGE SRC
