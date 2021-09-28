@@ -62,7 +62,7 @@ export class FormValidator {
     //this._form.reset();
     const button = this._form.querySelector(this._obj.submitButtonSelector);
     button.setAttribute('disabled', true); 
-    button.classList.add('submit-invalid');
+    button.classList.add(this._obj.inactiveButtonClass);
   }
     
    _setEventListeners() {

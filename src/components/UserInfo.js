@@ -8,16 +8,16 @@ export class UserInfo {
 
 
     getUserInfo() {
-        const User = {}
-        User.nameInput = this._nameLand.textContent;
-        User.jobInput = this._jobLand.textContent;
-        return User;
+        const user = {}
+        user.nameInput = this._nameLand.textContent;
+        user.jobInput = this._jobLand.textContent;
+        return user;
       }
 
     setUserInfo(data) {
 
-        document.querySelector(this._name).textContent = data.name;
-        document.querySelector(this._job).textContent = data.profession;
+        this._nameLand.textContent = data.name;
+        this._jobLand.textContent = data.profession;
         console.log(data)
     }
 

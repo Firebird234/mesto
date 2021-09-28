@@ -68,7 +68,7 @@ cardsSection.renderItems();
 const popupWithFromClass = new PopupWithForm(
   '.popup_add',
   (data) => {
-    const cardElement = createCard(data.name, Object.values(data)[1]);
+    const cardElement = createCard(data.name, data['image-link']);
     console.log(Object.keys(data)[1])
     cardsSection.addItem(cardElement);
   }
