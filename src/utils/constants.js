@@ -25,7 +25,7 @@ const imagePopupIllustration = document.querySelector('.popup__illustration');
 const imagePopupTitle = document.querySelector('.popup__image-title');
 
 const elementsSection = document.querySelector('.elements');
-const changeAvatarButton = document.querySelector('.profile__illustration_redact');
+const changeAvatarButton = document.querySelector('.profile__illustration-redact');
 const avatar = document.querySelector('.profile__illustration');
 
 

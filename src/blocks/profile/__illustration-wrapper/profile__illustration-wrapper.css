@@ -1,4 +1,4 @@
-.profile__illustration_wrapper {
+.profile__illustration-wrapper {
     position: absolute;
     height: 120px;
     width: 120px;
@@ -6,7 +6,7 @@
     opacity: 0;
 }
 
-.profile__illustration_wrapper:hover {
+.profile__illustration-wrapper:hover {
     /* visibility: visible; */
     opacity: 1;
 }

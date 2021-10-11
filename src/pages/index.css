@@ -32,9 +32,9 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
-@import url(../blocks/profile/__illustration_wrapper/profile__illustration_wrapper.css);
+@import url(../blocks/profile/__illustration-wrapper/profile__illustration-wrapper.css);
 @import url(../blocks/profile/__illustration-overlay/profile__illustration-overlay.css);
-@import url(../blocks/profile/__illustration_redact/profile__illustration_redact.css);
+@import url(../blocks/profile/__illustration-redact/profile__illustration-redact.css);
 
 
 

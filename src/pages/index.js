@@ -19,7 +19,10 @@ import { popupEditButton, closeEditButton, popupEditProfile, formEditElement, na
 
 const requestServerData = new Api('https://mesto.nomoreparties.co');
 const editUserInfo = new UserInfo( {name: '.profile__title', job: '.profile__subtitle'} );
-const popupEdit = new PopupWithForm('.popup_edit', (data) => {editUserInfo.setUserInfo(data)}, (data) => { requestServerData.sendUserData(data);});
+const popupEdit = new PopupWithForm('.popup_edit', (data) => {editUserInfo.setUserInfo(data);
+  requestServerData.sendUserData(data);
+
+  popupEdit.close();});
 const popupDeleteIcon = new RemovalPopup('.popup_card-removal', (cardId, kard) => {
   requestServerData.deleteCardRequest(cardId);
   kard.remove();
