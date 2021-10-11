@@ -20,12 +20,22 @@ export class PopupWithForm extends Popup{
         this._popup.querySelector('.form').reset();
     }
 
+
+    renderLoading(isLoading, loadingName, submitName) {
+        if (isLoading) {
+            this._popup.querySelector('.popup__submit').textContent = loadingName;
+            }
+        else {
+            this._popup.querySelector('.popup__submit').textContent = submitName;
+        }
+      }
+
     setEventListeners() {
         super.setEventListeners();
         this._popup.addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._addFormSubmitHandler(this._getInputValues());
-            this.close();
+            console.log(this._getInputValues())
         })
     }
 

@@ -17,8 +17,8 @@ export class UserInfo {
     setUserInfo(data) {
 
         this._nameLand.textContent = data.name;
-        this._jobLand.textContent = data.profession;
-        console.log(data)
+        this._jobLand.textContent = data.about;
+
     }
 
 }
