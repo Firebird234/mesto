@@ -13,16 +13,12 @@ export class RemovalPopup extends Popup{
         this.cardId = cardId;
     }
 
-    close() {
-        super.close();
-    }
 
     setEventListeners() {
         super.setEventListeners();
 
         this._popup.querySelector('.popup__submit').addEventListener('click', () => {
-            this.submitHandler(this.cardId, this.kard);
-            this.close();     
+            this.submitHandler(this.cardId, this.kard);     
         });
         
     }

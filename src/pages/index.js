@@ -1,3 +1,6 @@
+//FORMVALIDATOR,INDEX
+
+
 import './index.css'
 
 import { Card } from "../components/Card.js";
@@ -14,17 +17,23 @@ import { popupEditButton, closeEditButton, popupEditProfile, formEditElement, na
   popupAdd, popupAddCardCloseButton, popupAddSubmitButton, placeInput, linkInput, formAdded, imageOpen, imageCloseButton, imagePopup,
   imagePopupIllustration, imagePopupTitle, elementsSection, initialCards, changeAvatarButton, avatar } from '../utils/constants.js'
 
+  let userId;
 
 
-
-const requestServerData = new Api('https://mesto.nomoreparties.co');
-const editUserInfo = new UserInfo( {name: '.profile__title', job: '.profile__subtitle'} );
+const requestServerData = new Api('https://mesto.nomoreparties.co/v1/cohort-28/', {
+  authorization: '7623580f-b1ba-482c-8170-fbcdd1434884',
+  'Content-Type': 'application/json'
+  } );
+const editUserInfo = new UserInfo( {name: '.profile__title', job: '.profile__subtitle', avatar: '.profile__illustration'} );
 const popupEdit = new PopupWithForm('.popup_edit', (data) => {editUserInfo.setUserInfo(data);
-  requestServerData.sendUserData(data);
+  requestServerData.sendUserData(data)
+  .then((res) => { popupEdit.close();})
+  .catch((res) => {console.log(err)})
 
-  popupEdit.close();});
+});
 const popupDeleteIcon = new RemovalPopup('.popup_card-removal', (cardId, kard) => {
-  requestServerData.deleteCardRequest(cardId);
+  requestServerData.deleteCardRequest(cardId)
+  .then(() => {popupDeleteIcon.close()})
   kard.remove();
 });
 popupDeleteIcon.setEventListeners();
@@ -33,22 +42,74 @@ popupDeleteIcon.setEventListeners();
 
 function insertEditPopupData() {
   const data = editUserInfo.getUserInfo();
+  console.log(data)
   nameInput.value = data.nameInput;
   jobInput.value = data.jobInput;
 }
 
 
-requestServerData.getUserdata()
-.then((data) => {editUserInfo.setUserInfo(data);
-popupEdit.setEventListeners();
-avatar.src = data.avatar;
-const obj = data;
-popupEditButton.addEventListener('click', (data) => { popupEdit.open();
-                                                    insertEditPopupData(obj);
+// const promis1 = requestServerData.getUserdata()
+// .then((data) => {editUserInfo.setUserInfo(data);
+// popupEdit.setEventListeners();
+// avatar.src = data.avatar;
+// const obj = data;
+// popupEditButton.addEventListener('click', (data) => { popupEdit.open();
+//                                                     insertEditPopupData(obj);
+//                                                   })
+// })
+
+// const promis2 = requestServerData.getCards()
+// .then((data) => {
+//   console.log(data);
+//     cardsSection = new Section({ items: data, renderer: (item) => {
+//     const cardElement = createCard(item.name, item.link, item.likes, item._id, item.owner._id);
+//       console.log(cardElement)
+//     if (item.owner.name !==  document.querySelector('.profile__title').textContent) {
+
+//       cardElement.querySelector('.elements__delete').classList.add('elements__delete_hidden');
+//     }
+//     cardsSection.addItem(cardElement);
+//   } 
+//   }, elementsSection);
+//   cardsSection.renderItems();
+//   return cardsSection;
+// })
+
+const promis1 = requestServerData.getUserdata();
+
+const promis2 = requestServerData.getCards();
+
+
+Promise.all([promis1, promis2])
+.then((data) => {
+  const user = data[0];
+  userId = data[0]._id;
+  console.log(data);
+  editUserInfo.setUserInfo(user);
+  popupEdit.setEventListeners();
+  editUserInfo.setUserAvatar(user.avatar);
+const obj = user;
+popupEditButton.addEventListener('click', (user) => { popupEdit.open();
+                                                    insertEditPopupData();
                                                   })
+return data;
 })
+.then((data) => {
+  const cards = data[1];
+    cardsSection = new Section({ items: cards, renderer: (item) => {
+    const cardElement = createCard(item.name, item.link, item.likes, item._id, item.owner._id);
+      console.log(cardElement)
+    // if (item.owner.name !==  document.querySelector('.profile__title').textContent) {
 
-
+    //   cardElement.querySelector('.elements__delete').classList.add('elements__delete_hidden');
+    // }
+    cardsSection.addItem(cardElement);
+  } 
+  }, elementsSection);
+  cardsSection.renderItems();
+  return cardsSection;
+})
+.catch((err) => {console.log(err)})
 
 
 const imageCardPopup = new PopupWithImage('.popup_press-image');
@@ -68,11 +129,10 @@ function createCard(name, link, likes, cardId, ownerId) {
       deleteCardPopup: (cardId, kard) => popupDeleteIcon.open(cardId, kard),
 
       pressLikeRequest: (cardId) => {
-        if( likes.some((el) => {return el._id === 'fbabe050904e3bdc8f569a91'})) {
+        if( likes.some((el) => {return el._id === userId})) {
             requestServerData.deleteLikeRequest(cardId)
               .then((data) => {
-                card.__pressDislike(data);
-                console.log(data);
+                card.pressDislike(data);
                 console.log('dislike');
                 likes = data.likes;
               })
@@ -81,8 +141,7 @@ function createCard(name, link, likes, cardId, ownerId) {
           requestServerData.pressLikeRequest(cardId)
           .then((data) => {
             console.log('like');
-            console.log(data);
-            card._pressLike(data);
+            card.pressLike(data);
             likes = data.likes;
           })
 
@@ -90,8 +149,10 @@ function createCard(name, link, likes, cardId, ownerId) {
       },
     },
     cardId,
-    ownerId
+    ownerId,
+    userId
     );
+
    const cardElement = card.generateCard();
    return cardElement;
 }
@@ -106,22 +167,7 @@ popupAddButton.addEventListener('click', () => {
 let cardsSection = {};
 
 
-requestServerData.getCards()
-.then((data) => {
-  console.log(data);
-    cardsSection = new Section({ items: data, renderer: (item) => {
-    const cardElement = createCard(item.name, item.link, item.likes, item._id, item.owner._id);
-      console.log(cardElement)
-    if (item.owner.name !==  document.querySelector('.profile__title').textContent) {
 
-      cardElement.querySelector('.elements__delete').classList.add('elements__delete_hidden');
-    }
-    cardsSection.addItem(cardElement);
-  } 
-  }, elementsSection);
-  cardsSection.renderItems();
-  return cardsSection;
-})
 
 
 console.log( document.querySelector('.profile__title').textContent);
@@ -134,6 +180,7 @@ const popupWithFromClass = new PopupWithForm(
 popupWithFromClass.renderLoading(true, 'Сохранение', 'Создать');
 requestServerData.sendUserCard(data)
   .then((data) => {
+    popupWithFromClass.close();
     const cardElement = createCard(data.name, data.link, data.likes, data._id, data.owner._id);
     cardsSection.addItem(cardElement);
   })
@@ -150,11 +197,14 @@ const popupAvatarReset = new PopupWithForm(
   popupAvatarReset.renderLoading(true, 'Сохранение', 'Сохранить');
   requestServerData.changeAvatarRequest(inputData)
   .then((data) => {
-    avatar.src = data.avatar;
-    console.log(data)
+    // avatar.src = data.avatar;
+    const link = data.avatar;
+    editUserInfo.setUserAvatar(link);
+    console.log(data);
+    popupAvatarReset.close();
   })
-  .finally(() => {popupAvatarReset.renderLoading(true, 'Сохранение', 'Сохранить');
-  popupAvatarReset.close()})
+  .finally(() => {popupAvatarReset.renderLoading(false, 'Сохранение', 'Сохранить');
+})
   }
   );
   popupAvatarReset.setEventListeners()
@@ -179,18 +229,5 @@ Array.from(document.querySelectorAll('.form')).forEach((formEl) => {
   form.enableValidation();
 })
 
-console.log('abobus');/*
-const numbers = [2, 3, 5];
+console.log('abobus');
 
-// Стрелочная функция. Не запнётся ли на ней Internet Explorer?
-const doubledNumbers = numbers.map(number => number * 2);
-
-console.log(doubledNumbers); // 4, 6, 10 )*/
-
-
-
-
-
-//console.log(reqCards);
-
-//cardsSection.addItem();

@@ -2,7 +2,7 @@ export class Card {
 
     constructor(name, link, likes, cardSelector, 
         { handleCardClick, deleteCardPopup, pressLikeRequest}, 
-        cardId, ownerId) {
+        cardId, ownerId, userId) {
 
         this._name = name;
         this._link = link;
@@ -13,6 +13,7 @@ export class Card {
         this.cardId = cardId;
         this.pressLikeRequest = pressLikeRequest;
         this.ownerId = ownerId;
+        this.userId = userId;
     }
 
     _copyTemplateCard() {
@@ -24,7 +25,7 @@ export class Card {
     generateCard() {
       this._card = this._copyTemplateCard();
       this._setEventListeners();
-    console.log(this.likes)
+
       this._card.querySelector('.elements__title').innerText = this._name;
       this._card.querySelector('.elements__illustration').src = this._link;
       this._card.querySelector('.elements__illustration').alt = this._name;
@@ -32,19 +33,25 @@ export class Card {
 
 
     if( this.likes.some((el) => {
-        return el._id === 'fbabe050904e3bdc8f569a91';})) {
-            this._pressLike(this);
+        return el._id === this.userId;})) {
+            this.pressLike(this);
+            console.log(this.userId)
     }
+
+    if (this.ownerId !==  this.userId) {
+
+        this._card.querySelector('.elements__delete').classList.add('elements__delete_hidden');
+      }
 
       return this._card;
     }
 
-    _pressLike(data) {
+    pressLike(data) {
         this._card.querySelector('.elements__like').classList.add('elements__like_active');
         this._card.querySelector('.elements__like-count').textContent = data.likes.length;
     }
 
-    __pressDislike(data) {
+    pressDislike(data) {
         this._card.querySelector('.elements__like').classList.remove('elements__like_active');
         this._card.querySelector('.elements__like-count').textContent = data.likes.length;
     }
@@ -57,7 +64,6 @@ export class Card {
       
         this._card.querySelector('.elements__delete').addEventListener('click', () => {
             this._deleteCardPopup(this.cardId, this._card);
-            document.querySelector('.popup_card-removal').classList.add('popup_opened');
         });
       
         this._card.querySelector('.elements__illustration').addEventListener('click', () => { this.handleCardClick(this._name, this._link) });
