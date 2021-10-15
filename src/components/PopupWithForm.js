@@ -4,6 +4,7 @@ export class PopupWithForm extends Popup{
     constructor(popupSelector, addFormSubmitHandler) {
         super(popupSelector);
         this._addFormSubmitHandler = addFormSubmitHandler;
+        this._submitButton = this._popup.querySelector('.popup__submit');
     }
 
     _getInputValues() {
@@ -24,10 +25,13 @@ export class PopupWithForm extends Popup{
     renderLoading(isLoading, loadingName, submitName) {
         if (isLoading) {
             this._popup.querySelector('.popup__submit').textContent = loadingName;
+            this._submitButton.setAttribute('disabled', true);
             }
         else {
             this._popup.querySelector('.popup__submit').textContent = submitName;
+            this._submitButton.removeAttribute('disabled', true);
         }
+
       }
 
     setEventListeners() {

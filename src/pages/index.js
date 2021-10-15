@@ -25,16 +25,18 @@ const requestServerData = new Api('https://mesto.nomoreparties.co/v1/cohort-28/'
   'Content-Type': 'application/json'
   } );
 const editUserInfo = new UserInfo( {name: '.profile__title', job: '.profile__subtitle', avatar: '.profile__illustration'} );
-const popupEdit = new PopupWithForm('.popup_edit', (data) => {editUserInfo.setUserInfo(data);
+const popupEdit = new PopupWithForm('.popup_edit', (data) => {
   requestServerData.sendUserData(data)
+  .then((data) => {editUserInfo.setUserInfo(data);})
   .then((res) => { popupEdit.close();})
   .catch((res) => {console.log(err)})
 
 });
 const popupDeleteIcon = new RemovalPopup('.popup_card-removal', (cardId, kard) => {
   requestServerData.deleteCardRequest(cardId)
-  .then(() => {popupDeleteIcon.close()})
-  kard.remove();
+  .then(() => {popupDeleteIcon.close();
+    kard.remove();
+  })
 });
 popupDeleteIcon.setEventListeners();
 
@@ -136,6 +138,7 @@ function createCard(name, link, likes, cardId, ownerId) {
                 console.log('dislike');
                 likes = data.likes;
               })
+              .catch(() => {console.log(err)})
           
         } else {
           requestServerData.pressLikeRequest(cardId)
@@ -144,6 +147,7 @@ function createCard(name, link, likes, cardId, ownerId) {
             card.pressLike(data);
             likes = data.likes;
           })
+          .catch(() => {console.log(err)})
 
         }
       },
@@ -173,7 +177,6 @@ let cardsSection = {};
 console.log( document.querySelector('.profile__title').textContent);
 
 
-
 const popupWithFromClass = new PopupWithForm(
   '.popup_add',
   (data) => {
@@ -184,8 +187,7 @@ requestServerData.sendUserCard(data)
     const cardElement = createCard(data.name, data.link, data.likes, data._id, data.owner._id);
     cardsSection.addItem(cardElement);
   })
-  .finally(() => {popupWithFromClass.renderLoading(false, 'Сохранение', 'Создать');
-  popupWithFromClass.close();})
+  .finally(() => {popupWithFromClass.renderLoading(false, 'Сохранение', 'Создать');})
   }
   );
   popupWithFromClass.setEventListeners()

@@ -62,7 +62,7 @@ export class FormValidator {
     //this._form.reset();
     const button = this._form.querySelector(this._obj.submitButtonSelector);
     button.setAttribute('disabled', true); 
-    button.classList.add(this._obj.inactiveButtonClass);//ЭТОТ МЕТОД НУЖЕН ЧТОБЫ ПРИ ПОВТОРНОМ ОТКРЫТИИ ФОРМЫ КНОПКА ОТКЛЮЧАЛАСЬ
+    button.classList.add(this._obj.inactiveButtonClass);
   }
     
    _setEventListeners() {
@@ -70,7 +70,8 @@ export class FormValidator {
     this._form.addEventListener('input', (evt) => {this._validateForm(evt)}, true);
     const button = this._form.querySelector(this._obj.submitButtonSelector);
 
-    this._form.addEventListener('submit', () => { this.resetForm();})
+    this._form.addEventListener('reset', () => { this.resetForm();})
+
     
     if (this._isFormInvalid()) { this._setButtonState(button, false)}
     else { this._setButtonState(button, true)};
